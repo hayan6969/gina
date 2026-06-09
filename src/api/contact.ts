@@ -1,5 +1,6 @@
-// Mock API endpoint for contact form
-// In production, this would connect to your backend service
+// Client-side helper that submits the contact form to the
+// Vercel serverless function at /api/contact (see /api/contact.ts),
+// which sends the email through Resend.
 
 interface ContactFormData {
   name: string
@@ -12,41 +13,28 @@ interface ContactFormData {
 }
 
 export async function handleContactSubmission(data: ContactFormData) {
+  let response: Response
+
   try {
-    // Simulate API processing delay
-    await new Promise(resolve => setTimeout(resolve, 1000))
-
-    // Validate required fields
-    if (!data.name || !data.organization || !data.email || !data.supportNeeded || !data.preferredContact) {
-      throw new Error('Missing required fields')
-    }
-
-    // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    if (!emailRegex.test(data.email)) {
-      throw new Error('Invalid email format')
-    }
-
-    // In a real application, you would:
-    // 1. Save to database
-    // 2. Send confirmation email to user
-    // 3. Send notification email to admin
-    // 4. Integrate with CRM/email service
-
-    console.log('[v0] Contact form submitted:', {
-      ...data,
-      timestamp: new Date().toISOString(),
+    response = await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
     })
-
-    return {
-      success: true,
-      message: 'Form submitted successfully',
-      data,
-    }
-  } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : 'An error occurred'
-    console.error('[v0] Contact form error:', errorMessage)
-    
-    throw new Error(errorMessage)
+  } catch {
+    throw new Error('Network error. Please check your connection and try again.')
   }
+
+  let result: { success?: boolean; message?: string } = {}
+  try {
+    result = await response.json()
+  } catch {
+    // Non-JSON response (e.g. unexpected server error)
+  }
+
+  if (!response.ok || !result.success) {
+    throw new Error(result.message || 'Failed to submit the form')
+  }
+
+  return result
 }

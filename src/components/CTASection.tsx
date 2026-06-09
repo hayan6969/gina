@@ -5,6 +5,13 @@ import { animationClasses, getRevealDelayStyle } from '../lib/animations'
 export default function CTASection() {
   const { ref, isInView } = useInView<HTMLElement>()
 
+  const handleStartConversation = () => {
+    document.getElementById('contactForm')?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    })
+  }
+
   return (
     <section ref={ref} className="py-20 md:py-28 bg-white">
       <div className=" mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -42,7 +49,7 @@ export default function CTASection() {
         </div>
 
         {/* CTA Button */}
-        <Button variant="primary" className={`${animationClasses.reveal} ${isInView ? animationClasses.visible : ''} mb-4 tracking-wider`} style={getRevealDelayStyle(840)}>
+        <Button variant="primary" onClick={handleStartConversation} className={`${animationClasses.reveal} ${isInView ? animationClasses.visible : ''} mb-4 tracking-wider`} style={getRevealDelayStyle(840)}>
           Start the Conversation
         </Button>
 

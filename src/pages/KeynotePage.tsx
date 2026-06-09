@@ -221,13 +221,16 @@ export default function KeynotePage() {
                 Book Now
               </Button>
 
-              <button className="flex items-center gap-2 px-6 py-3 font-body font-medium text-[#FFFFFFBF] underline underline-offset-4 transition-colors group w-full sm:w-auto justify-center sm:justify-start">
+              <a
+                href="mailto:gina@ginagspeaks.org"
+                className="flex items-center gap-2 px-6 py-3 font-body font-medium text-[#FFFFFFBF] underline underline-offset-4 transition-colors group w-full sm:w-auto justify-center sm:justify-start"
+              >
                 Start a Conversation
                 <ArrowRight
                   size={18}
                   className=" translate-y-[1px] group-hover:translate-x-1 transition-transform"
                 />
-              </button>
+              </a>
             </div>
 
           </div>
