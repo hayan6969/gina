@@ -218,7 +218,7 @@ export default function KeynotePage() {
                 onClick={handleBookNowClick}
 
               >
-                Book Now
+                Contact Gina
               </Button>
 
               <a
