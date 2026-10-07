@@ -183,7 +183,7 @@ export default function AboutPage() {
                 }`}
                 style={{ transitionDelay: '600ms' }}
               >
-                              <Button variant="primary" onClick={handleBookNowClick}>Book Now</Button>
+              <Button variant="primary" onClick={handleBookNowClick}>Contact Gina</Button>
 
               </div>
             </div>

